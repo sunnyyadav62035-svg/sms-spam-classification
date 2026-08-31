@@ -1,8 +1,9 @@
-import streamlit as st
 import pickle
-import nltk
 import string
+from pathlib import Path
 
+import nltk
+import streamlit as st
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
@@ -64,9 +65,15 @@ def transform_text(text):
 # -----------------------------
 # Load Model and Vectorizer
 # -----------------------------
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "model.pkl"
+VECTORIZER_PATH = BASE_DIR / "vectorizer.pkl"
+
 try:
-    tfidf = pickle.load(open("vectorizer.pkl", "rb"))
-    model = pickle.load(open("model.pkl", "rb"))
+    with MODEL_PATH.open("rb") as model_file:
+        model = pickle.load(model_file)
+    with VECTORIZER_PATH.open("rb") as vectorizer_file:
+        tfidf = pickle.load(vectorizer_file)
 except FileNotFoundError:
     st.error(
         "❌ model.pkl or vectorizer.pkl not found. "
