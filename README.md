@@ -38,9 +38,6 @@ nltk.download('stopwords')
 ```bash
 streamlit run app.py
 ```
-5. Open App:
-   
-   https://sms-spams-classification.streamlit.app/
 
 ## Example
 
